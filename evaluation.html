@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluation Results</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .table {
+            margin-top: 20px;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .table td, .table th {
+            vertical-align: middle;
+        }
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+        .incorrect {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Evaluation Results</h1>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <h2>Score: {{ score }} / {{ data|length }}</h2>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Question</th>
+                    <th scope="col">Your Answer</th>
+                    <th scope="col">Correct Answer</th>
+                    <th scope="col">Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data %}
+                <tr>
+                    <td>{{ item.question }}</td>
+                    <td>{{ item.user_answer }}</td>
+                    <td>{{ item.correct_answer }}</td>
+                    <td class="{% if item.is_correct %}correct{% else %}incorrect{% endif %}">
+                        {% if item.is_correct %}
+                            Correct
+                        {% else %}
+                            Incorrect
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

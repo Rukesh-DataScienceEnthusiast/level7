@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questions</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+}
+.header {
+    text-align: center;
+    margin: 20px;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.form-group button:hover {
+    background-color: #0056b3;
+}
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>Skill Assessment Questions</h1>
+</div>
+<div class="container">
+    <form action="/submit_answers" method="post">
+        {% for question in questions %}
+        <div class="form-group">
+            <label>{{ question.id }}. {{ question.question }}</label>
+            <select name="user_answer_{{ question.id }}">
+                <option value="" disabled selected>Select your answer</option>
+                {% for key, option in question.options.items() %}
+                <option value="{{ option }}">{{ key }}. {{ option }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endfor %}
+        <div class="form-group">
+            <button type="submit">Submit Answers</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

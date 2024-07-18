@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Answers</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+}
+.header {
+    text-align: center;
+    margin: 20px;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.question-block {
+    margin-bottom: 20px;
+}
+.correct-answer {
+    color: green;
+}
+.wrong-answer {
+    color: red;
+}
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>Submitted Answers</h1>
+</div>
+<div class="container">
+    {% for question in questions %}
+    <div class="question-block">
+        <p><strong>{{ question.id }}. {{ question.question }}</strong></p>
+        <p>Correct Answer: <span class="correct-answer">{{ question.correct }}</span></p>
+        <p>Your Answer:
+            {% if question.user_answer == question.correct %}
+            <span class="correct-answer">{{ question.user_answer }}</span>
+            {% else %}
+            <span class="wrong-answer">{{ question.user_answer }}</span>
+            {% endif %}
+        </p>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>

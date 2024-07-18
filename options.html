@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Options</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+}
+.header {
+    text-align: center;
+    margin: 20px;
+}
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group input[type="number"],
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.form-group button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.form-group button:hover {
+    background-color: #0056b3;
+}
+.skills-list {
+    list-style-type: none;
+    padding: 0;
+}
+.skills-list li {
+    margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>SKILL ASSESSMENT AND RECRUITMENT SYSTEM</h1>
+</div>
+<div class="container">
+    <form action="/generate_questions" method="post">
+        {% if skills %}
+        <h2>Skills Extracted from Resume:</h2>
+        <ul class="skills-list">
+            {% for skill in skills %}
+            <li>
+                <label>
+                    <input type="checkbox" name="selected_skills[]" value="{{ skill }}"> {{ skill }}
+                </label>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Generate Questions</h2>
+        <div class="form-group">
+            <label for="num_questions">Number of Questions:</label>
+            <input type="number" id="num_questions" name="num_questions" value="10" min="1">
+        </div>
+        <div class="form-group">
+            <input type="radio" name="question_mode" value="combined" checked> Combined
+            <input type="radio" name="question_mode" value="separate"> Separate
+        </div>
+        <div class="form-group">
+            <button type="submit">Generate Questions</button>
+        </div>
+        {% else %}
+        <p>No skills extracted from the resume.</p>
+        {% endif %}
+    </form>
+</div>
+</body>
+</html>
